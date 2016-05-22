@@ -2,8 +2,8 @@
 
 ## Introduction
 
-Kafkactl is a command line tool for controlling kafka scheduler
-running on top of Apache Mesos. A simple REST client for the scheduler
+Kafkactl is a command line tool written in GO for controlling kafka scheduler
+that runs on top of Apache Mesos. A simple REST client for the scheduler
 remote API.
 
 ## Features

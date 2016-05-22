@@ -27,7 +27,9 @@ var brokerCmd = &cobra.Command{
 	Long: `A broker holds a number of partitions from differents topics.
 You can manager them with this command`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("broker called")
+		if apiURL == "" {
+			fmt.Println("Cannot find kafka scheduler url. Using default: 0.0.0.0:7070")
+		}
 	},
 }
 

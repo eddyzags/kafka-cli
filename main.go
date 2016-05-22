@@ -14,7 +14,7 @@
 
 package main
 
-import "github.com/eddyzags/kafka-cli/kafkactl/cmd"
+import "github.com/eddyzags/kafka-cli/cmd"
 
 func main() {
 	cmd.Execute()

@@ -1,3 +1,9 @@
 package client
 
-type APIClient interface{}
+import (
+	"github.com/eddyzags/kafkactl/models"
+)
+
+type APIClient interface {
+	BrokerList() ([]*models.Broker, error)
+}

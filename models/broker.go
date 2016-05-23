@@ -7,6 +7,16 @@ type BrokerFailover struct {
 	FailureTime int64 `json:"failureTime"`
 }
 
+type BrokerTask struct {
+	//TODO(eddyzags): Attributes field
+	ExecutorID string `json:"executorId"`
+	SlaveID    string `json:"slaveId"`
+	Hostname   string `json:"hostname"`
+	ID         string `json:"id"`
+	Endpoint   string `json:"endpoint"`
+	State      string `json:"state"`
+}
+
 type Broker struct {
 	ID       int64           `json:id`
 	Mem      float64         `json:"mem"`
@@ -14,4 +24,5 @@ type Broker struct {
 	Heap     float64         `json:"heap"`
 	Failover *BrokerFailover `json:"failover"`
 	Active   bool            `json:"active"`
+	Task     *BrokerTask     `json:"task"`
 }

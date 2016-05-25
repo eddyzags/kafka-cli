@@ -19,21 +19,34 @@ func List(api client.APIClient, all bool) error {
 	table.SetAutoFormatHeaders(false)
 	table.SetAutoWrapText(false)
 	if all {
-		table.SetHeader([]string{"ID", "ACTIVE", "STATE", "CPUS", "MEM", "HEAP", "HOSTNAME", "ENDPOINT"})
+		table.SetHeader([]string{"ID", "HOSTNAME", "ACTIVE", "STATE", "CPUS", "MEM", "HEAP", "ENDPOINT"})
 		for _, broker := range brokers {
-			table.Append([]string{
-				broker.ID,
-				broker.Active,
-				broker.State,
-				fmt.Sprintf("%g", broker.Cpus),
-				fmt.Sprintf("%g", broker.Mem),
-				fmt.Sprintf("%g", broker.Heap),
-				broker.Task.Hostname,
-				broker.Task.Endpoint,
-			})
+			if broker.Active == true {
+				table.Append([]string{
+					broker.ID,
+					broker.Task.Hostname,
+					fmt.Sprintf("%t", broker.Active),
+					broker.Task.State,
+					fmt.Sprintf("%g", broker.Cpus),
+					fmt.Sprintf("%g", broker.Mem),
+					fmt.Sprintf("%g", broker.Heap),
+					broker.Task.Endpoint,
+				})
+			} else {
+				table.Append([]string{
+					broker.ID,
+					"n/a",
+					fmt.Sprintf("%t", broker.Active),
+					"stopped",
+					fmt.Sprintf("%g", broker.Cpus),
+					fmt.Sprintf("%g", broker.Mem),
+					fmt.Sprintf("%g", broker.Heap),
+					"n/a",
+				})
+			}
 		}
 	} else {
-		table.SetHeader([]string{"ID", "STATE", "CPUS", "MEM", "HEAP", "HOSTNAME", "ENDPOINT"})
+		table.SetHeader([]string{"ID", "HOSTNAME", "STATE", "CPUS", "MEM", "HEAP", "ENDPOINT"})
 		for _, broker := range brokers {
 			if broker.Active != true {
 				continue
@@ -41,11 +54,11 @@ func List(api client.APIClient, all bool) error {
 
 			table.Append([]string{
 				broker.ID,
-				broker.State,
+				broker.Task.Hostname,
+				broker.Task.State,
 				fmt.Sprintf("%g", broker.Cpus),
 				fmt.Sprintf("%g", broker.Mem),
 				fmt.Sprintf("%g", broker.Heap),
-				broker.Task.Hostname,
 				broker.Task.Endpoint,
 			})
 		}

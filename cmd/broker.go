@@ -24,10 +24,6 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var (
-	brokerListAll bool
-)
-
 // brokerCmd represents the broker command
 var brokerCmd = &cobra.Command{
 	Use:   "broker",
@@ -51,5 +47,5 @@ You can manager them with this command`,
 func init() {
 	RootCmd.AddCommand(brokerCmd)
 
-	brokerCmd.Flags().BoolVarP(&brokerListAll, "all", "a", false, "Do not ignore unactive brokers")
+	brokerCmd.PersistentFlags().BoolVarP(&brokerListAll, "all", "a", false, "Do not ignore unactive brokers")
 }

@@ -16,8 +16,16 @@ package cmd
 
 import (
 	"fmt"
+	"os"
+
+	"github.com/eddyzags/kafkactl/api/client"
+	"github.com/eddyzags/kafkactl/brokers"
 
 	"github.com/spf13/cobra"
+)
+
+var (
+	brokerListAll bool
 )
 
 // brokerCmd represents the broker command
@@ -30,9 +38,18 @@ You can manager them with this command`,
 		if apiURL == "" {
 			fmt.Println("Cannot find kafka scheduler url. Using default: 0.0.0.0:7070")
 		}
+
+		c := client.NewClient(apiURL)
+
+		if err := brokers.List(c, brokerListAll); err != nil {
+			fmt.Fprintf(os.Stderr, "kafkactl: Unexpected error occured \"%v\"\n", err)
+			os.Exit(1)
+		}
 	},
 }
 
 func init() {
 	RootCmd.AddCommand(brokerCmd)
+
+	brokerCmd.Flags().BoolVarP(&brokerListAll, "all", "a", false, "Do not ignore unactive brokers")
 }

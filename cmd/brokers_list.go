@@ -28,8 +28,8 @@ var (
 	brokersListAll bool
 )
 
-// brokerListCmd represents the broker broker list subcommand
-var brokerListCmd = &cobra.Command{
+// brokersListCmd represents a brokersCmd subcommand
+var brokersListCmd = &cobra.Command{
 	Use:   "list",
 	Short: "List your brokers",
 	Long:  ``,
@@ -48,5 +48,5 @@ var brokerListCmd = &cobra.Command{
 }
 
 func init() {
-	brokersCmd.AddCommand(brokerListCmd)
+	brokersCmd.AddCommand(brokersListCmd)
 }

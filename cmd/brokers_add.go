@@ -17,8 +17,12 @@ package cmd
 import (
 	"fmt"
 
+	"github.com/eddyzags/kafkactl/types"
+
 	"github.com/spf13/cobra"
 )
+
+var brokersAddParams *types.BrokerAdd
 
 // brokersAddCmd represents a brokersCmd subcommand
 var brokersAddCmd = &cobra.Command{
@@ -32,4 +36,19 @@ var brokersAddCmd = &cobra.Command{
 
 func init() {
 	brokersCmd.AddCommand(brokersAddCmd)
+
+	brokersAddCmd.PersistentFlags().StringVarP(&brokersAddParams.BindAddress, "bind-address", "", "", "Broker bind address (broker0, 192.168.50.*, if:eth1). Default - auto")
+	brokersAddCmd.PersistentFlags().StringVarP(&brokersAddParams.Constraints, "constraints", "", "", "Constraints (hostname=like:master,rack=like:1.*)")
+	brokersAddCmd.PersistentFlags().Float64VarP(&brokersAddParams.Cpus, "cpus", "", 0.5, "Cpus amount (0.1, 1, 2)")
+	brokersAddCmd.PersistentFlags().StringVarP(&brokersAddParams.FailoverDelay, "failover-delay", "", "", "Failover delay")
+	brokersAddCmd.PersistentFlags().StringVarP(&brokersAddParams.FailoverMaxDelay, "failover-max-delay", "", "", "Max failover delay")
+	brokersAddCmd.PersistentFlags().StringVarP(&brokersAddParams.FailoverMaxTries, "failover-max-tries", "", "", "Max failover tries. Default - none")
+	brokersAddCmd.PersistentFlags().Float64VarP(&brokersAddParams.Heap, "heap", "", 1024, "Heap amount in MB")
+	brokersAddCmd.PersistentFlags().StringVarP(&brokersAddParams.JvmOptions, "jvm-options", "", "", "JVM options string (-Xms128m -XX:PermSize=48m)")
+	brokersAddCmd.PersistentFlags().StringVarP(&brokersAddParams.Log4jOptions, "log4j-options", "", "", "log4j options or file. Examples: log4j.logger.kafka=DEBUG, kafkaAppender file:log4j.properties")
+	brokersAddCmd.PersistentFlags().Float64VarP(&brokersAddParams.Mem, "mem", "", 2048, "Mem amount in MB. Default - 2048")
+	brokersAddCmd.PersistentFlags().StringVarP(&brokersAddParams.Options, "options", "", "", "Options or file. Examples: log.dirs=/tmp/kafka/$id,num.io.threads=16 file:server.properties")
+	brokersAddCmd.PersistentFlags().StringVarP(&brokersAddParams.Port, "port", "", "auto", "Port or range (31092, 31090..31100). Default - auto")
+	brokersAddCmd.PersistentFlags().StringVarP(&brokersAddParams.StickinessPeriod, "stickiness-period", "", "", "Stickiness period to preserve same node for broker (5m, 10m, 1h)")
+	brokersAddCmd.PersistentFlags().StringVarP(&brokersAddParams.Volume, "volume", "", "", "Pre-reserved persitent volume id")
 }

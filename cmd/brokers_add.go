@@ -22,7 +22,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var brokersAddParams *types.BrokerAdd
+var brokersAddParams types.BrokerAdd
 
 // brokersAddCmd represents a brokersCmd subcommand
 var brokersAddCmd = &cobra.Command{

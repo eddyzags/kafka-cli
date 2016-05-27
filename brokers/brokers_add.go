@@ -1,9 +1,11 @@
 package brokers
 
 import (
-	"github.com/kafkactl/api/client"
+	"github.com/eddyzags/kafkactl/api/client"
 )
 
 type BrokerAdd struct{}
 
-func Add(api client.APIClient, in *BrokerAdd) error {}
+func Add(api client.APIClient, in *BrokerAdd) error {
+	return nil
+}

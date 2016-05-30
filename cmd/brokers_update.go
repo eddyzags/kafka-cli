@@ -43,7 +43,7 @@ var brokersUpdateCmd = &cobra.Command{
 
 		c := client.NewClient(apiURL)
 
-		brokersUpdateParams = args[0]
+		brokersUpdateParams.Expr = args[0]
 
 		if err := brokers.Update(c, &brokersUpdateParams); err != nil {
 			fmt.Fprintf(os.Stderr, "kafkactl: Unexpected error occured \"%v\"\n", err)

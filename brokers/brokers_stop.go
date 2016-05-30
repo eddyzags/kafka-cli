@@ -6,8 +6,8 @@ import (
 	"github.com/eddyzags/kafkactl/api/client"
 )
 
-func Stop(api client.APIClient, expr string) error {
-	brokers, err := api.BrokerStop(expr)
+func Stop(api client.APIClient, expr, timeout string, force bool) error {
+	brokers, err := api.BrokerStop(expr, timeout, force)
 	if err != nil {
 		return err
 	}

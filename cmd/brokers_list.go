@@ -49,4 +49,6 @@ var brokersListCmd = &cobra.Command{
 
 func init() {
 	brokersCmd.AddCommand(brokersListCmd)
+
+	brokersListCmd.PersistentFlags().BoolVarP(&brokersListAll, "all", "a", false, "Do not ignore unactive brokers")
 }

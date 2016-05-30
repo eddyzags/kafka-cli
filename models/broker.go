@@ -25,4 +25,5 @@ type Broker struct {
 	Failover *BrokerFailover `json:"failover"`
 	Active   bool            `json:"active"`
 	Task     *BrokerTask     `json:"task"`
+	Port     string          `json:"port"`
 }

@@ -3,15 +3,15 @@ package types
 type BrokerAdd struct {
 	BindAddress      string
 	Constraints      string
-	Cpus             float64
+	Cpus             string
 	Expr             string
 	FailoverDelay    string
 	FailoverMaxDelay string
 	FailoverMaxTries string
-	Heap             float64
+	Heap             string
 	JvmOptions       string
 	Log4jOptions     string
-	Mem              float64
+	Mem              string
 	Options          string
 	Port             string
 	StickinessPeriod string

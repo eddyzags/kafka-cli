@@ -17,10 +17,18 @@ type BrokerStopResponse struct {
 	Status  string           `json:"status"`
 }
 
-func (c *Client) BrokerStop(expr string) ([]*models.Broker, error) {
+func (c *Client) BrokerStop(expr, timeout string, force bool) ([]*models.Broker, error) {
 	values := url.Values{}
 
 	values.Set("broker", expr)
+
+	if timeout != "" {
+		values.Set("timeout", timeout)
+	}
+
+	if force != false {
+		values.Set("force", fmt.Sprintf("%t", force))
+	}
 
 	url := c.URL + path.Join("/api", "broker", "stop") + "?" + values.Encode()
 

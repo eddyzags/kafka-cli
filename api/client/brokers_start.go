@@ -8,14 +8,16 @@ import (
 	"net/http"
 	"net/url"
 	"path"
+
+	"github.com/eddyzags/kafkactl/models"
 )
 
 type BrokerStartResponse struct {
-	Success bool   `json:"success"`
-	Ids     string `json:"ids"`
+	Brokers []*models.Broker `json:"brokers"`
+	Status  string           `json:"status"`
 }
 
-func (c *Client) BrokerStart(expr, timeout string) (string, error) {
+func (c *Client) BrokerStart(expr, timeout string) ([]*models.Broker, error) {
 	values := url.Values{}
 	if timeout != "" {
 		values.Set("timeout", timeout)
@@ -26,32 +28,32 @@ func (c *Client) BrokerStart(expr, timeout string) (string, error) {
 
 	req, err := http.NewRequest("POST", url, nil)
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 
 	client := http.Client{}
 	resp, err := client.Do(req)
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 
 	if resp.StatusCode != 201 && resp.StatusCode != 200 {
-		return "", errors.New("Failed to retreived response: " + fmt.Sprintf("%d", resp.StatusCode))
+		return nil, errors.New("Failed to retreived response: " + fmt.Sprintf("%d", resp.StatusCode))
 	}
 
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 
 	response := &BrokerStartResponse{}
 	if err := json.Unmarshal(body, &response); err != nil {
-		return "", err
+		return nil, err
 	}
 
-	if response.Success != true {
-		return "", errors.New("Internal error occured: starting failed")
+	if response.Status != "started" {
+		return nil, errors.New("Internal error occured: starting failed")
 	}
 
-	return response.Ids, nil
+	return response.Brokers, nil
 }

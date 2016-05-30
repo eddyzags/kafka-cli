@@ -10,4 +10,5 @@ type APIClient interface {
 	BrokerStart(expr, timeout string) ([]*models.Broker, error)
 	BrokerList() ([]*models.Broker, error)
 	BrokerStop(expr, timeout string, stop bool) ([]*models.Broker, error)
+	BrokerRemove(expr string) (string, error)
 }

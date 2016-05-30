@@ -24,6 +24,11 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var (
+	brokersStopForce   bool
+	brokersStopTimeout string
+)
+
 var brokersStopCmd = &cobra.Command{
 	Use:   "stop",
 	Short: "Stop a broker",
@@ -40,7 +45,7 @@ var brokersStopCmd = &cobra.Command{
 
 		c := client.NewClient(apiURL)
 
-		if err := brokers.Stop(c, args[0]); err != nil {
+		if err := brokers.Stop(c, args[0], brokersStopTimeout, brokersStopForce); err != nil {
 			fmt.Fprintf(os.Stderr, "kafkactl: Unexpected error occured \"%v\"\n", err)
 			os.Exit(1)
 		}
@@ -49,4 +54,7 @@ var brokersStopCmd = &cobra.Command{
 
 func init() {
 	brokersCmd.AddCommand(brokersStopCmd)
+
+	brokersStopCmd.PersistentFlags().BoolVarP(&brokersStopForce, "force", "", false, "Forcibly stop")
+	brokersStopCmd.PersistentFlags().StringVarP(&brokersStopTimeout, "timeout", "", "", "Timeout 30s, 1m, 1h). 0s - no timeout")
 }

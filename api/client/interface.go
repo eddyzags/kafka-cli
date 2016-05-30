@@ -5,6 +5,8 @@ import (
 )
 
 type APIClient interface {
-	BrokerList() ([]*models.Broker, error)
+	// Broker handling functions
 	BrokerAdd(in map[string]string) ([]*models.Broker, error)
+	BrokerStart(expr, timeout string) (string, error)
+	BrokerList() ([]*models.Broker, error)
 }

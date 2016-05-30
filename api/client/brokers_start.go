@@ -3,6 +3,7 @@ package client
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io/ioutil"
 	"net/http"
 	"net/url"
@@ -35,7 +36,7 @@ func (c *Client) BrokerStart(expr, timeout string) (string, error) {
 	}
 
 	if resp.StatusCode != 201 && resp.StatusCode != 200 {
-		return "", errors.New("Failed to retreived response: ", fmt.Sprintf("%d", resp.StatusCode))
+		return "", errors.New("Failed to retreived response: " + fmt.Sprintf("%d", resp.StatusCode))
 	}
 
 	body, err := ioutil.ReadAll(resp.Body)

@@ -39,6 +39,10 @@ func Update(api client.APIClient, params *types.BrokerAdd) error {
 	table.SetHeader([]string{"ID", "ACTIVE", "CPUS", "MEM", "HEAP", "PORT"})
 
 	for _, broker := range brokers {
+		if broker.Port == "" {
+			broker.Port = "auto"
+		}
+
 		table.Append([]string{
 			broker.ID,
 			fmt.Sprintf("%t", broker.Active),

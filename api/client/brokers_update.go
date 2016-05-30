@@ -27,7 +27,7 @@ func (c *Client) BrokerUpdate(in map[string]string) ([]*models.Broker, error) {
 		values.Set(k, v)
 	}
 
-	url := c.URL + path.Join("/api", "broker", "add") + "?" + values.Encode()
+	url := c.URL + path.Join("/api", "broker", "update") + "?" + values.Encode()
 
 	req, err := http.NewRequest("POST", url, nil)
 	if err != nil {

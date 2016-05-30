@@ -6,5 +6,5 @@ import (
 
 type APIClient interface {
 	BrokerList() ([]*models.Broker, error)
-	BrokerAdd()
+	BrokerAdd(in map[string]string) ([]*models.Broker, error)
 }

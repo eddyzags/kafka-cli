@@ -1,12 +1,13 @@
 package client
 
 import (
+	"encoding/json"
 	"errors"
+	"fmt"
+	"io/ioutil"
 	"net/http"
 	"net/url"
 	"path"
-
-	"github.com/eddyzags/kafkactl/models"
 )
 
 type BrokerRemoveResponse struct {
@@ -22,27 +23,27 @@ func (c *Client) BrokerRemove(expr string) (string, error) {
 
 	req, err := http.NewRequest("POST", url, nil)
 	if err != nil {
-		return nil, err
+		return "", err
 	}
 
 	client := &http.Client{}
 	resp, err := client.Do(req)
 	if err != nil {
-		return nil, err
+		return "", err
 	}
 
 	if resp.StatusCode != 201 && resp.StatusCode != 200 {
-		return nil, errors.New("Failed to retreived response: " + fmt.Sprintf("%d", resp.StatusCode))
+		return "", errors.New("Failed to retreived response: " + fmt.Sprintf("%d", resp.StatusCode))
 	}
 
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		return nil, err
+		return "", err
 	}
 
 	response := &BrokerRemoveResponse{}
 	if err := json.Unmarshal(body, &response); err != nil {
-		return nil, err
+		return "", err
 	}
 
 	return response.Ids, nil

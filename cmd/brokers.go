@@ -24,6 +24,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var brokersAll bool
+
 // brokersCmd represents the brokers command
 var brokersCmd = &cobra.Command{
 	Use:   "brokers",
@@ -37,7 +39,7 @@ You can manager them with this command`,
 
 		c := client.NewClient(apiURL)
 
-		if err := brokers.List(c, brokersListAll); err != nil {
+		if err := brokers.List(c, brokersAll); err != nil {
 			fmt.Fprintf(os.Stderr, "kafkactl: Unexpected error occured \"%v\"\n", err)
 			os.Exit(1)
 		}
@@ -47,5 +49,5 @@ You can manager them with this command`,
 func init() {
 	RootCmd.AddCommand(brokersCmd)
 
-	brokersCmd.PersistentFlags().BoolVarP(&brokersListAll, "all", "a", false, "Do not ignore unactive brokers")
+	brokersCmd.Flags().BoolVarP(&brokersAll, "all", "a", false, "Do not ignore unactive brokers")
 }

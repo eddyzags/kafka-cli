@@ -14,9 +14,9 @@ func Remove(api client.APIClient, expr string) error {
 	}
 
 	if strings.Contains(ids, ",") {
-		fmt.Printf("The brokers \"%s\" were stopped successfully.\n", ids)
+		fmt.Printf("The brokers \"%s\" were removed successfully.\n", ids)
 	} else {
-		fmt.Printf("The broker \"%s\" was stopped successfully.\n", ids)
+		fmt.Printf("The broker \"%s\" was removed successfully.\n", ids)
 	}
 
 	return nil

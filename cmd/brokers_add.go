@@ -34,7 +34,7 @@ var brokersAddCmd = &cobra.Command{
 	Long:  ``,
 	Run: func(cmd *cobra.Command, args []string) {
 		if len(args) < 1 {
-			fmt.Fprintf(os.Stderr, "The broker id or expr is missing")
+			fmt.Fprintf(os.Stderr, "The broker id or expr is missing\n")
 			os.Exit(1)
 		}
 
